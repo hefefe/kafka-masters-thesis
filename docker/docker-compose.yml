@@ -1,25 +1,30 @@
 version: '3.8'
 services:
   app:
-      # environment:
-      #   DB_HOST: 10.100.0.3
       build:
         context: ../kafka
         dockerfile: app/Dockerfile
       restart: always
-      # networks:
-      #   musicNetwork:
-      #     ipv4_address: 10.100.0.2
+      networks:
+        kafkaNetwork:
+          ipv4_address: 10.100.0.2
       ports:
         - '8080:8080'
-      # expose:
-      #   - "8080"
+      expose:
+      - "8080"
+      environment:
+        SPRING_KAFKA_BOOTSTRAPSERVERS: broker:9092
+      depends_on:
+      - broker
+      - kafdrop
   broker:
     image: confluentinc/cp-kafka:latest
     hostname: broker
     container_name: broker
     ports:
       - '29092:29092'
+    expose:
+      - "29092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONTROLLER:PLAINTEXT
@@ -36,11 +41,43 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+    networks:
+      kafkaNetwork:
+        ipv4_address: 10.100.0.3
   kafdrop:
     image: obsidiandynamics/kafdrop:3.30.0
     depends_on:
       - broker
     ports:
       - '9090:9000'
-    environment:
+    networks:
+      kafkaNetwork:
+        ipv4_address: 10.100.0.4
+    environment:  
       KAFKA_BROKERCONNECT: broker:9092
+  consumer:
+    build:
+      context: ../consumer
+      dockerfile: app/Dockerfile
+    restart: always
+    environment:
+      SPRING_KAFKA_BOOTSTRAPSERVERS: broker:9092
+    depends_on:
+      - broker
+      - kafdrop
+      - app
+    ports:
+      - '8081-8085:8081'
+    networks:
+      - kafkaNetwork
+    deploy:
+      mode: replicated
+      replicas: 5
+      endpoint_mode: vip
+networks:
+  kafkaNetwork:
+    internal: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.0.1/16
