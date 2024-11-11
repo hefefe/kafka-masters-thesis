@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: kafka-test-app
+  port: 8080
+  kafka:
+    bootstrap-servers: localhost:29092
+
+kafka-test-app:
+  kafka:
+    topics:
+        name: com.mw.master.kafka
+        partitions: 5
+        replicationFactor: 1

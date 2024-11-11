@@ -1,0 +1,11 @@
+server:
+  port: 0
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:29092
+
+kafka-test-app:
+  kafka:
+    topics:
+      name: com.mw.master.kafka
