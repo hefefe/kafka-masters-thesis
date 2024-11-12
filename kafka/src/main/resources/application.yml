@@ -9,5 +9,5 @@ kafka-test-app:
   kafka:
     topics:
         name: com.mw.master.kafka
-        partitions: 5
+        partitions: ${SPRING_KAFKA_PARTITIONS}
         replicationFactor: 1

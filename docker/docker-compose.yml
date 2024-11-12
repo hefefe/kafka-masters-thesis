@@ -14,6 +14,7 @@ services:
       - "8080"
       environment:
         SPRING_KAFKA_BOOTSTRAPSERVERS: broker:9092
+        SPRING_KAFKA_PARTITIONS: 3
       depends_on:
       - broker
       - kafdrop
@@ -49,7 +50,7 @@ services:
     depends_on:
       - broker
     ports:
-      - '9090:9000'
+      - '9080:9000'
     networks:
       kafkaNetwork:
         ipv4_address: 10.100.0.4
@@ -67,13 +68,87 @@ services:
       - kafdrop
       - app
     ports:
-      - '8081-8085:8081'
+      - '10000-10002:10000'
     networks:
       - kafkaNetwork
     deploy:
       mode: replicated
-      replicas: 5
+      replicas: 3
       endpoint_mode: vip
+  prometheus:
+    image: docker.io/prom/prometheus:v2.55.1
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    expose:
+      - "9090"
+    command: "--config.file=/etc/prometheus/prometheus.yaml"
+    volumes:
+      - ./config/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+    depends_on:
+      - consumer
+    networks:
+      kafkaNetwork:
+        ipv4_address: 10.100.0.100
+  grafana:
+    image: docker.io/grafana/grafana-oss:11.3.0
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    networks:
+      kafkaNetwork:
+        ipv4_address: 10.100.0.110
+  # cadvisor:
+  #   image: gcr.io/cadvisor/cadvisor:v0.51.0
+  #   container_name: cadvisor
+  #   # ports:
+  #   #   - 8800:8800
+  #   depends_on:
+  #     - prometheus
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /run:/run:ro
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #     - /dev/disk/:/dev/disk:ro
+  #   devices:
+  #     - /dev/kmsg
+  #   privileged: true
+  #   restart: unless-stopped
+  #   networks:
+  #     kafkaNetwork:
+  #       ipv4_address: 10.100.0.120
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:v1.8.2
+    container_name: node_exporter
+    command: "--path.rootfs=/host"
+    pid: host
+    ports:
+      - 9100:9100
+    volumes:
+      - /:/host:ro,rslave
+    privileged: true
+    restart: unless-stopped
+    networks:
+      kafkaNetwork:
+        ipv4_address: 10.100.0.120
+  kafka-exporter:
+    image: danielqsj/kafka-exporter 
+    command: ["--kafka.server=broker:9092"]
+    depends_on:
+      - prometheus
+    ports:
+      - 9308:9308 
+    networks:
+      kafkaNetwork:
+        ipv4_address: 10.100.0.130
 networks:
   kafkaNetwork:
     internal: false
@@ -81,3 +156,9 @@ networks:
       driver: default
       config:
         - subnet: 10.100.0.1/16
+volumes:
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+  
