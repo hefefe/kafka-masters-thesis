@@ -22,9 +22,9 @@ scrape_configs:
       - targets: ['node_exporter:9100']
 
   # job for cadvisor
-  # - job_name: 'cadvisor'
-  #   static_configs:
-  #     - targets: ['cadvisor:8800']
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
   # job for kafka-exporter
   - job_name: 'kafka-exporter'
     static_configs:

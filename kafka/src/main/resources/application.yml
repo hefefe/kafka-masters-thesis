@@ -1,13 +1,15 @@
+server:
+  port: ${SPRING_KAFKA_PORT}
+
 spring:
   application:
     name: kafka-test-app
-  port: 8080
   kafka:
     bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAPSERVERS}
 
 kafka-test-app:
   kafka:
     topics:
-        name: com.mw.master.kafka
+        name: ${SPRING_KAFKA_TOPIC_NAME}
         partitions: ${SPRING_KAFKA_PARTITIONS}
         replicationFactor: 1
