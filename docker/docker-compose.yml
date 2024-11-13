@@ -5,12 +5,8 @@ services:
         context: ../kafka
         dockerfile: app/Dockerfile
       restart: always
-      networks:
-        - kafkaNetwork
       ports:
         - '1234:1234'
-      expose:
-      - "1234"
       environment:
         SPRING_KAFKA_BOOTSTRAPSERVERS: broker:9092
         SPRING_KAFKA_PARTITIONS: 3
@@ -18,7 +14,6 @@ services:
         SPRING_KAFKA_TOPIC_NAME: com.mw.master.kafka
       depends_on:
       - broker
-      - kafdrop
 
   broker:
     image: confluentinc/cp-kafka:latest
@@ -26,8 +21,6 @@ services:
     container_name: broker
     ports:
       - '29092:29092'
-    expose:
-      - "29092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,CONTROLLER:PLAINTEXT
@@ -44,8 +37,6 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
-    networks:
-      - kafkaNetwork
 
   kafdrop:
     image: obsidiandynamics/kafdrop:3.30.0
@@ -53,10 +44,9 @@ services:
       - broker
     ports:
       - '9080:9000'
-    networks:
-      - kafkaNetwork
     environment:  
       KAFKA_BROKERCONNECT: broker:9092
+
   consumer:
     build:
       context: ../consumer
@@ -65,13 +55,9 @@ services:
     environment:
       SPRING_KAFKA_BOOTSTRAPSERVERS: broker:9092
     depends_on:
-      - broker
-      - kafdrop
       - app
     ports:
       - '10000-10002:10000'
-    networks:
-      - kafkaNetwork
     deploy:
       mode: replicated
       replicas: 3
@@ -89,10 +75,6 @@ services:
       - ./config/prometheus.yaml:/etc/prometheus/prometheus.yaml:ro
       - prometheus-data:/prometheus
     restart: unless-stopped
-    depends_on:
-      - consumer
-    networks:
-      - kafkaNetwork
 
   grafana:
     build: './grafana'
@@ -102,41 +84,19 @@ services:
     depends_on:
       - prometheus
     restart: unless-stopped
-    networks:
-      - kafkaNetwork
-
-  node_exporter:
-    image: prom/node-exporter:latest
-    container_name: node_exporter
-    ports:
-      - 9100:9100
-    expose:
-      - "9100"
-    volumes:
-      - /:/host:ro,rslave
-    command: 
-      - "--path.rootfs=/host"
-    privileged: true
-    restart: unless-stopped
-    networks:
-      - kafkaNetwork
 
   kafka-exporter:
     image: danielqsj/kafka-exporter 
     command: ["--kafka.server=broker:9092"]
-    depends_on:
-      - prometheus
     ports:
-      - 9308:9308 
-    networks:
-      - kafkaNetwork
+      - 9308:9308
+
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
     ports:
       - 8080:8080
     volumes:
-      # - /run:/run:rw #tu ro lub rw
       - /dev/disk/:/dev/disk:ro
       - /:/rootfs:ro
       - /var/run/docker.sock:/var/run/docker.sock:rw
@@ -146,17 +106,6 @@ services:
       - /dev/kmsg
     privileged: true
     restart: unless-stopped
-    networks:
-      - kafkaNetwork
-
-networks:
-  kafkaNetwork:
-    # internal: false
-    # ipam:
-    #   driver: default
-    #   config:
-    #     - subnet: 10.100.0.1/16
-    driver: bridge
 
 volumes:
   prometheus-data: {}
