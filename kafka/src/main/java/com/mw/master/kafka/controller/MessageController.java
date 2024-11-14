@@ -19,7 +19,6 @@ public class MessageController {
 
     @GetMapping
     public ResponseEntity<Void> SendTestMessageToKafka(@RequestParam(defaultValue = "1") Integer size, @RequestParam(defaultValue = "KB") MessageSizeUnit unit){
-        messageService.sendMessage(size, unit);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return messageService.sendMessage(size, unit);
     }
 }
