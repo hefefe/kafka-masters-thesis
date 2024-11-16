@@ -13,3 +13,12 @@ kafka-test-app:
         name: ${SPRING_KAFKA_TOPIC_NAME}
         partitions: ${SPRING_KAFKA_PARTITIONS}
         replicationFactor: 1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

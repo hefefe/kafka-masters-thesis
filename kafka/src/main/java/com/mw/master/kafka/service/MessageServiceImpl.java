@@ -2,6 +2,8 @@ package com.mw.master.kafka.service;
 
 import com.mw.master.kafka.data.TestMessage;
 import com.mw.master.kafka.type.MessageSizeUnit;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -12,14 +14,14 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService{
 
     private final KafkaTemplate kafkaTemplate;
-
+    private final Counter opsCounter;
+    private final Counter errorCounter;
     @Value("${kafka-test-app.kafka.topics.name}")
     private String topic;
 
@@ -30,12 +32,11 @@ public class MessageServiceImpl implements MessageService{
         Arrays.fill(randomMessage, 'a');
         var message = new TestMessage(String.valueOf(randomMessage), Instant.now());
         CompletableFuture<Object> future = kafkaTemplate.send(topic, message);
-        AtomicReference<ResponseEntity<Void>> response = new AtomicReference<>(new ResponseEntity<>(HttpStatus.OK));
         future.whenComplete((result,ex) -> {
-            if(ex != null){
-                response.set(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
-            }
+            opsCounter.increment();
+            if (ex != null)
+                errorCounter.increment();
         });
-        return response.get();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

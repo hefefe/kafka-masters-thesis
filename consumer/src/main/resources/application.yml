@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: ${SPRING_KAFKA_PORT}
 
 spring:
   kafka:
@@ -8,4 +8,13 @@ spring:
 kafka-test-app:
   kafka:
     topics:
-      name: com.mw.master.kafka
+      name: ${SPRING_KAFKA_TOPIC_NAME}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

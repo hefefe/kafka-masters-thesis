@@ -48,21 +48,50 @@ services:
     environment:  
       KAFKA_BROKERCONNECT: broker:9092
 
-  consumer:
+  consumer-1:
+    container_name: consumer-1
     build:
       context: ../consumer
       dockerfile: app/Dockerfile
     restart: always
     environment:
       SPRING_KAFKA_BOOTSTRAPSERVERS: broker:9092
+      SPRING_KAFKA_TOPIC_NAME: com.mw.master.kafka
+      SPRING_KAFKA_PORT: 10000
     depends_on:
       - app
     ports:
-      - '10000-10002:10000'
-    deploy:
-      mode: replicated
-      replicas: 3
-      endpoint_mode: vip
+      - '10000:10000'
+
+  consumer-2:
+    container_name: consumer-2
+    build:
+      context: ../consumer
+      dockerfile: app/Dockerfile
+    restart: always
+    environment:
+      SPRING_KAFKA_BOOTSTRAPSERVERS: broker:9092
+      SPRING_KAFKA_TOPIC_NAME: com.mw.master.kafka
+      SPRING_KAFKA_PORT: 10001
+    depends_on:
+      - app
+    ports:
+      - '10001:10001'
+  
+  consumer-3:
+    container_name: consumer-3
+    build:
+      context: ../consumer
+      dockerfile: app/Dockerfile
+    restart: always
+    environment:
+      SPRING_KAFKA_BOOTSTRAPSERVERS: broker:9092
+      SPRING_KAFKA_TOPIC_NAME: com.mw.master.kafka
+      SPRING_KAFKA_PORT: 10002
+    depends_on:
+      - app
+    ports:
+      - '10002:10002'
 
   prometheus:
     image: docker.io/prom/prometheus:v2.55.1

@@ -19,7 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -127,7 +127,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"^(broker|docker-consumer-1|docker-consumer-2|docker-consumer-3|producer)$\"}[5m])) by (name) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name) * 100",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -238,7 +238,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_memory_usage_bytes{name=~\"^(broker|docker-consumer-1|docker-consumer-2|docker-consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_memory_usage_bytes{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -337,7 +337,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_memory_cache{name=~\"^(broker|docker-consumer-1|docker-consumer-2|docker-consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_memory_cache{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -452,7 +452,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"^(broker|docker-consumer-1|docker-consumer-2|docker-consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -554,7 +554,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"^(broker|docker-consumer-1|docker-consumer-2|docker-consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -669,7 +669,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"^(broker|docker-consumer-1|docker-consumer-2|docker-consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -771,7 +771,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"^(broker|docker-consumer-1|docker-consumer-2|docker-consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -799,6 +799,6 @@
   "timezone": "",
   "title": "Docker cAdvisor",
   "uid": "ae3c41d7-cea5-4cca-a918-5708706b4d1a",
-  "version": 11,
+  "version": 1,
   "weekStart": ""
 }
