@@ -118,7 +118,8 @@ services:
     restart: unless-stopped
 
   kafka-exporter:
-    image: danielqsj/kafka-exporter 
+    container_name: kafka-exporter
+    image: danielqsj/kafka-exporter
     command: ["--kafka.server=broker:9092"]
     ports:
       - 9308:9308

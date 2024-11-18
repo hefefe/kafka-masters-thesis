@@ -1,22 +1,16 @@
 package com.mw.kafka.consumer.configuration;
 
 import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.DistributionSummary;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.sql.Time;
+import java.time.Duration;
+
 @Configuration
 public class PrometheusConfiguration {
-
-    @Bean
-    public DistributionSummary kafkaLatencySummary(MeterRegistry meterRegistry){
-        return DistributionSummary.builder("kafka_latency")
-                .description("end-to-end latency")
-                .baseUnit("ms")
-                .publishPercentiles(0.5, 0.9, 0.99)
-                .register(meterRegistry);
-    }
 
     @Bean
     public Counter opsCounter(MeterRegistry meterRegistry) {

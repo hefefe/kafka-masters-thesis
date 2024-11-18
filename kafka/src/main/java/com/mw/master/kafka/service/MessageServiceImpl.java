@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +33,13 @@ public class MessageServiceImpl implements MessageService{
         var randomMessage = new char[charSize];
         Arrays.fill(randomMessage, 'a');
         var message = new TestMessage(String.valueOf(randomMessage), Instant.now());
+//        Random ran = new Random();
+//        var nxt = (long) (ran.nextGaussian()*1250+1500);
+//        try {
+//            TimeUnit.MILLISECONDS.sleep(nxt);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         CompletableFuture<Object> future = kafkaTemplate.send(topic, message);
         future.whenComplete((result,ex) -> {
             opsCounter.increment();
