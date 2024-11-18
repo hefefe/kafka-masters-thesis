@@ -122,7 +122,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(kafka_topic_partition_current_offset{instance=~\"$instance\", topic=~\"$topic\"}[1m])) by (topic)",
+          "expr": "sum(rate(kafka_topic_partition_current_offset{topic=\"com.mw.master.kafka\"}[1m])) by (topic)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -225,12 +225,14 @@
             "type": "prometheus",
             "uid": "PABF2E7BD7AE7B0F4"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(delta(kafka_consumergroup_current_offset{instance=~'$instance',topic=~\"$topic\"}[1m])/60) by (consumergroup, topic)",
+          "expr": "sum(delta(kafka_consumergroup_current_offset{topic=\"com.mw.master.kafka\"}[1m])/60) by (topic)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{consumergroup}} (topic: {{topic}})",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -283,7 +285,7 @@
           "reverse": false,
           "scale": "exponential",
           "scheme": "RdYlBu",
-          "steps": 64
+          "steps": 20
         },
         "exemplars": {
           "color": "rgba(255,0,255,0.7)"
@@ -468,13 +470,13 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "rate(send_errors_total[5m])",
-          "legendFormat": "{{job}}",
+          "expr": "sum(rate(send_errors_total[1m]))",
+          "legendFormat": "Errors per second",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Producer/Consumer error rate",
+      "title": "Error rate",
       "type": "timeseries"
     }
   ],
@@ -485,101 +487,7 @@
     "Kafka"
   ],
   "templating": {
-    "list": [
-      {
-        "current": {
-          "text": "kafka-exporter",
-          "value": "kafka-exporter"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PABF2E7BD7AE7B0F4"
-        },
-        "definition": "label_values(kafka_consumergroup_current_offset, job)",
-        "includeAll": false,
-        "label": "Job",
-        "name": "job",
-        "options": [],
-        "query": {
-          "query": "label_values(kafka_consumergroup_current_offset, job)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "current": {
-          "text": "",
-          "value": ""
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PABF2E7BD7AE7B0F4"
-        },
-        "definition": "label_values(kafka_consumergroup_current_offset, service)",
-        "includeAll": false,
-        "name": "cluster_name",
-        "options": [],
-        "query": {
-          "query": "label_values(kafka_consumergroup_current_offset, service)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PABF2E7BD7AE7B0F4"
-        },
-        "definition": "label_values(kafka_consumergroup_current_offset{job=~\"$job\", service=~\"$cluster_name\"}, instance)",
-        "includeAll": true,
-        "label": "Instance",
-        "name": "instance",
-        "options": [],
-        "query": {
-          "query": "label_values(kafka_consumergroup_current_offset{job=~\"$job\", service=~\"$cluster_name\"}, instance)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "current": {
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PABF2E7BD7AE7B0F4"
-        },
-        "definition": "label_values(kafka_topic_partition_current_offset{instance=~'$instance',topic!='__consumer_offsets',topic!='--kafka'}, topic)",
-        "includeAll": true,
-        "label": "Topic",
-        "multi": true,
-        "name": "topic",
-        "options": [],
-        "query": {
-          "query": "label_values(kafka_topic_partition_current_offset{instance=~'$instance',topic!='__consumer_offsets',topic!='--kafka'}, topic)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "sort": 1,
-        "type": "query"
-      }
-    ]
+    "list": []
   },
   "time": {
     "from": "now-1h",

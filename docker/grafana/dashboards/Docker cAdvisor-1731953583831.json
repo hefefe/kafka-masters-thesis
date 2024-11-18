@@ -109,7 +109,7 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true,
           "sortBy": "Mean",
           "sortDesc": true
@@ -127,10 +127,23 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"broker\"}[5m])) by (name) * 100",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PABF2E7BD7AE7B0F4"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\"^(consumer-1|consumer-2|consumer-3)$\"}[5m])) * 100",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "consumers",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "CPU Usage",
@@ -220,7 +233,7 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true,
           "sortBy": "Mean",
           "sortDesc": true
@@ -238,11 +251,24 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_memory_usage_bytes{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_memory_usage_bytes{name=\"broker\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PABF2E7BD7AE7B0F4"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(container_memory_usage_bytes{name=~\"^(consumer-1|consumer-2|consumer-3)$\"}[5m]))",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "consumers",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Memory Usage",
@@ -319,7 +345,7 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true,
           "sortBy": "Mean",
           "sortDesc": true
@@ -337,11 +363,24 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_memory_cache{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_memory_cache{name=\"broker\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PABF2E7BD7AE7B0F4"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(container_memory_cache{name=~\"^(consumer-1|consumer-2|consumer-3)$\"}[5m]))",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "customers",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Memory Cached",
@@ -434,7 +473,7 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true,
           "sortBy": "Mean",
           "sortDesc": true
@@ -452,11 +491,24 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"broker\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PABF2E7BD7AE7B0F4"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=~\"^(consumer-1|consumer-2|consumer-3)$\"}[5m]))",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "consumers",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Reads",
@@ -536,7 +588,7 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true,
           "sortBy": "Mean",
           "sortDesc": true
@@ -554,11 +606,24 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"broker\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PABF2E7BD7AE7B0F4"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=~\"^(consumer-1|consumer-2|consumer-3)$\"}[5m]))",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "consumers",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Writes",
@@ -651,7 +716,7 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true,
           "sortBy": "Mean",
           "sortDesc": true
@@ -669,11 +734,24 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"broker\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PABF2E7BD7AE7B0F4"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=~\"^(consumer-1|consumer-2|consumer-3)$\"}[5m]))",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "customers",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Received Network Traffic",
@@ -753,7 +831,7 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true,
           "sortBy": "Mean",
           "sortDesc": true
@@ -771,11 +849,24 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"^(broker|consumer-1|consumer-2|consumer-3|producer)$\"}[5m])) by (name)",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"broker\"}[5m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PABF2E7BD7AE7B0F4"
+          },
+          "editorMode": "code",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=~\"^(consumer-1|consumer-2|consumer-3)$\"}[5m])) by (name)",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "customers",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Sent Network Traffic",

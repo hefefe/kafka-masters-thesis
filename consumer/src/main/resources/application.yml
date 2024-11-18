@@ -4,7 +4,9 @@ server:
 spring:
   kafka:
     bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAPSERVERS}
-
+  mvc:
+    async:
+      request-timeout: -1
 kafka-test-app:
   kafka:
     topics:
