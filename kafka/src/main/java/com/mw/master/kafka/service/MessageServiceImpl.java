@@ -3,7 +3,6 @@ package com.mw.master.kafka.service;
 import com.mw.master.kafka.data.TestMessage;
 import com.mw.master.kafka.type.MessageSizeUnit;
 import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -13,13 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
-public class MessageServiceImpl implements MessageService{
+public class MessageServiceImpl implements MessageService {
 
     private final KafkaTemplate kafkaTemplate;
     private final Counter opsCounter;
@@ -34,8 +31,7 @@ public class MessageServiceImpl implements MessageService{
         Arrays.fill(randomMessage, 'a');
         var message = new TestMessage(String.valueOf(randomMessage), Instant.now());
         CompletableFuture<Object> future = kafkaTemplate.send(topic, message);
-        future.whenComplete((result,ex) -> {
-            opsCounter.increment();
+        future.whenComplete((result, ex) -> {
             if (ex != null)
                 errorCounter.increment();
         });

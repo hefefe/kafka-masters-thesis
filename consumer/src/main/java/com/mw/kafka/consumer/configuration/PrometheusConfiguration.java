@@ -2,22 +2,11 @@ package com.mw.kafka.consumer.configuration;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Timer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.sql.Time;
-import java.time.Duration;
-
 @Configuration
 public class PrometheusConfiguration {
-
-    @Bean
-    public Counter opsCounter(MeterRegistry meterRegistry) {
-        return Counter.builder("send_attempts_total")
-                .description("Total number of send operations")
-                .register(meterRegistry);
-    }
 
     @Bean
     public Counter errorCounter(MeterRegistry meterRegistry) {

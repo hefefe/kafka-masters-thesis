@@ -7,12 +7,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 class PrometheusConfiguration {
-    @Bean
-    public Counter opsCounter(MeterRegistry meterRegistry) {
-        return Counter.builder("send_attempts_total")
-                .description("Total number of send operations")
-                .register(meterRegistry);
-    }
 
     @Bean
     public Counter errorCounter(MeterRegistry meterRegistry) {

@@ -5,7 +5,7 @@ spring:
   application:
     name: kafka-test-app
   kafka:
-    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAPSERVERS}
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAPSERVERS:localhost:29092}
   mvc:
     async:
       request-timeout: -1

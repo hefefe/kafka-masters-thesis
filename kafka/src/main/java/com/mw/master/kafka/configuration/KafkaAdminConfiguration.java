@@ -1,5 +1,4 @@
 package com.mw.master.kafka.configuration;
-import java.util.Map;
 
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -7,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaAdmin;
+
+import java.util.Map;
 
 @Configuration
 public class KafkaAdminConfiguration {
@@ -24,12 +25,12 @@ public class KafkaAdminConfiguration {
     private short topicReplicationFactor;
 
     @Bean
-    public KafkaAdmin kafkaAdmin(){
+    public KafkaAdmin kafkaAdmin() {
         return new KafkaAdmin(Map.of(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServersUrl));
     }
 
     @Bean
-    public NewTopic mailTopic(){
+    public NewTopic mailTopic() {
         return new NewTopic(topic, topicPartitions, topicReplicationFactor);
     }
 }

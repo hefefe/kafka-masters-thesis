@@ -1,0 +1,1 @@
+k6 run -e SIZE=10 -e UNIT=KB -e TARGET=300 stress_test.js

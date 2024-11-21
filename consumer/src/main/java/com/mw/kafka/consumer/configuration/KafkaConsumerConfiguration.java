@@ -27,7 +27,6 @@ public class KafkaConsumerConfiguration {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
-    private final Counter opsCounter;
     private final Counter errorCounter;
 
     @Bean
@@ -46,10 +45,7 @@ public class KafkaConsumerConfiguration {
     @Bean
     public DefaultErrorHandler errorHandler() {
         FixedBackOff backOff = new FixedBackOff(0L, 0);
-        return new DefaultErrorHandler((record, exception) -> {
-            opsCounter.increment();
-            errorCounter.increment();
-        }, backOff);
+        return new DefaultErrorHandler((record, exception) -> errorCounter.increment(), backOff);
     }
 
     @Bean

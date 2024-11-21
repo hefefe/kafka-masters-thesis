@@ -106,13 +106,13 @@
         "legend": {
           "calcs": [
             "max",
-            "mean"
+            "mean",
+            "variance",
+            "stdDev"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Mean",
-          "sortDesc": true
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -230,13 +230,13 @@
         "legend": {
           "calcs": [
             "max",
-            "mean"
+            "mean",
+            "variance",
+            "stdDev"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Mean",
-          "sortDesc": true
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -342,13 +342,13 @@
         "legend": {
           "calcs": [
             "max",
-            "mean"
+            "mean",
+            "variance",
+            "stdDev"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Mean",
-          "sortDesc": true
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -470,13 +470,13 @@
         "legend": {
           "calcs": [
             "max",
-            "mean"
+            "mean",
+            "variance",
+            "stdDev"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Mean",
-          "sortDesc": true
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -585,13 +585,13 @@
         "legend": {
           "calcs": [
             "max",
-            "mean"
+            "mean",
+            "variance",
+            "stdDev"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Mean",
-          "sortDesc": true
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -713,13 +713,13 @@
         "legend": {
           "calcs": [
             "max",
-            "mean"
+            "mean",
+            "variance",
+            "stdDev"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Mean",
-          "sortDesc": true
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -828,13 +828,13 @@
         "legend": {
           "calcs": [
             "max",
-            "mean"
+            "mean",
+            "variance",
+            "stdDev"
           ],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true,
-          "sortBy": "Mean",
-          "sortDesc": true
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
