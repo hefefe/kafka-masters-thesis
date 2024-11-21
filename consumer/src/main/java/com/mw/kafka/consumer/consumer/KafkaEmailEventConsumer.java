@@ -20,12 +20,11 @@ import java.util.List;
 public class KafkaEmailEventConsumer {
 
     private final MeterRegistry meterRegistry;
-    private static final List<Integer> values = List.of(0, 25, 50, 75, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000, 2500, 3000, 4000, 5000);
+    private static final List<Integer> VALUES = List.of(0, 25, 50, 75, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000, 2500, 3000, 4000, 5000);
 
     public KafkaEmailEventConsumer(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
-        values.forEach(val -> getCounter(val.toString()));
-
+        VALUES.forEach(val -> getCounter(val.toString()));
     }
 
     private Counter getCounter(String upto) {
@@ -46,13 +45,13 @@ public class KafkaEmailEventConsumer {
     }
 
     private void incrementSpecificCounter(long latency) {
-        for (int i = 1; i < values.size(); i++) {
-            if (latency >= values.get(values.size() - 1)) {
-                incrementCounter(values.get(values.size() - 1).toString());
+        for (int i = 1; i < VALUES.size(); i++) {
+            if (latency >= VALUES.get(VALUES.size() - 1)) {
+                incrementCounter(VALUES.get(VALUES.size() - 1).toString());
                 break;
             }
-            if (latency < values.get(i)) {
-                incrementCounter(values.get(i - 1).toString());
+            if (latency < VALUES.get(i)) {
+                incrementCounter(VALUES.get(i - 1).toString());
                 break;
             }
         }

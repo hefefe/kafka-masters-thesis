@@ -258,7 +258,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "axisSoftMax": 1,
+            "axisSoftMax": 100,
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
@@ -299,7 +299,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -332,13 +333,13 @@
         {
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(send_errors_total[1m]))",
-          "legendFormat": "Errors per second",
+          "expr": "sum(rate(spring_kafka_operations_total{type=\"error\"}[1m]))/(sum(rate(spring_kafka_operations_total{type=\"operation\"}[1m]))) * 100 > 0 or vector(0)",
+          "legendFormat": "Error ratio per second",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Errors per second",
+      "title": "Error ratio per second",
       "type": "timeseries"
     },
     {
