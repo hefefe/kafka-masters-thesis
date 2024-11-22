@@ -39,9 +39,6 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LOG_DIRS: /tmp/kraft-combined-logs
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
-    volumes:
-      - broker-data:/var/lib/kafka/data
-      - broker-metadata:/var/lib/kafka/metadata
 
   kafdrop:
     image: obsidiandynamics/kafdrop:3.30.0
@@ -121,5 +118,3 @@ services:
 volumes:
   prometheus-data: {}
   grafana-data: {}
-  broker-data: {}
-  broker-metadata: {}
