@@ -127,7 +127,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"broker\"}[5m])) by (name) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=\"broker\"}[1m])) by (name) * 100",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -251,7 +251,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_memory_usage_bytes{name=\"broker\"}[5m])) by (name)",
+          "expr": "sum(rate(container_memory_usage_bytes{name=\"broker\"}[1m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -363,7 +363,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_memory_cache{name=\"broker\"}[5m])) by (name)",
+          "expr": "sum(rate(container_memory_cache{name=\"broker\"}[1m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -491,7 +491,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"broker\"}[5m])) by (name)",
+          "expr": "sum(rate(container_fs_reads_bytes_total{name=\"broker\"}[1m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -606,7 +606,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"broker\"}[5m])) by (name)",
+          "expr": "sum(rate(container_fs_writes_bytes_total{name=\"broker\"}[1m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -734,7 +734,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_receive_bytes_total{name=\"broker\"}[5m])) by (name)",
+          "expr": "sum(rate(container_network_receive_bytes_total{name=\"broker\"}[1m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
@@ -849,7 +849,7 @@
             "uid": "PABF2E7BD7AE7B0F4"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"broker\"}[5m])) by (name)",
+          "expr": "sum(rate(container_network_transmit_bytes_total{name=\"broker\"}[1m])) by (name)",
           "instant": false,
           "legendFormat": "__auto",
           "range": true,
