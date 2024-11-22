@@ -45,6 +45,7 @@ services:
 
   kafdrop:
     image: obsidiandynamics/kafdrop:3.30.0
+    restart: unless-stopped
     depends_on:
       - broker
     ports:
@@ -56,7 +57,7 @@ services:
     build:
       context: ../consumer
       dockerfile: app/Dockerfile
-    restart: unless-stopped
+    restart: always
     environment:
       SPRING_KAFKA_BOOTSTRAPSERVERS: broker:9092
       SPRING_KAFKA_TOPIC_NAME: com.mw.master.kafka
