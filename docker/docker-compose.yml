@@ -1,13 +1,10 @@
 version: '3.8'
 services:
-  app:
-    container_name: producer
+  producer:
     build:
       context: ../kafka
       dockerfile: app/Dockerfile
     restart: always
-    ports:
-      - '${SPRING_PRODUCER_PORT}:${SPRING_PRODUCER_PORT}'
     environment:
       SPRING_KAFKA_BOOTSTRAPSERVERS: broker:9092
       SPRING_KAFKA_PARTITIONS: ${SPRING_CONSUMERS}
@@ -15,6 +12,11 @@ services:
       SPRING_KAFKA_TOPIC_NAME: com.mw.master.kafka
     depends_on:
       - broker
+    ports:
+      - '${SPRING_PRODUCER_PORT}-${SPRING_PRODUCER_PORT_LIMIT}:${SPRING_PRODUCER_PORT}'
+    deploy:
+      mode: replicated
+      replicas: ${SPRING_PRODUCERS}
 
   broker:
     image: confluentinc/cp-kafka:latest
@@ -60,7 +62,7 @@ services:
       SPRING_KAFKA_TOPIC_NAME: com.mw.master.kafka
       SPRING_KAFKA_PORT: ${SPRING_CONSUMER_PORT}
     depends_on:
-      - app
+      - producer
     ports:
       - '${SPRING_CONSUMER_PORT}-${PORT_LIMIT}:${SPRING_CONSUMER_PORT}'
     deploy:
