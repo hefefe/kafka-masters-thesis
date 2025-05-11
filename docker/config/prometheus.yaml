@@ -20,7 +20,7 @@ scrape_configs:
       - names:
           - producer
         type: A
-        port: 10100
+        port: 2200
   
   - job_name: 'consumer'
     metrics_path: '/actuator/prometheus'
@@ -28,4 +28,4 @@ scrape_configs:
       - names:
           - consumer
         type: A
-        port: 10000
+        port: 2000

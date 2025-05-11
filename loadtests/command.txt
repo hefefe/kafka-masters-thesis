@@ -1,1 +1,1 @@
-k6 run -e SIZE=10 -e UNIT=KB -e TARGET=300 -e BASEPORT=10100 -e INSTANCES=5 stress_test.js
+k6 run -e SIZE=50 -e UNIT=KB -e TARGET=13560 -e BASEPORT=2200 -e INSTANCES=5 spike_test.js

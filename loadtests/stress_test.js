@@ -12,6 +12,6 @@ export const options = {
 
 export default () => {
   const port = parseInt(__ENV.BASEPORT) + (vu.idInTest - 1) % parseInt(__ENV.INSTANCES);
-  const urlRes = http.get(`http://localhost:`+port+`/api/v1/message/test?size=${__ENV.SIZE}&unit=${__ENV.UNIT}`);
+  const urlRes = http.get(`http://localhost:${port}/api/v1/message/test?size=${__ENV.SIZE}&unit=${__ENV.UNIT}`);
   sleep(1);
 }

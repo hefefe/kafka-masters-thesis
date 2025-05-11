@@ -4,13 +4,13 @@ import { vu } from 'k6/execution';
 
 export const options = {
   stages: [
-    { duration: '2m', target: parseInt(__ENV.TARGET) },
+    { duration: '4m', target: parseInt(__ENV.TARGET) },
     { duration: '1m', target: 0 }
   ],
 };
 
 export default () => {
   const port = parseInt(__ENV.BASEPORT) + (vu.idInTest - 1) % parseInt(__ENV.INSTANCES);
-  const urlRes = http.get(`http://localhost:`+port+`/api/v1/message/test?size=${__ENV.SIZE}&unit=${__ENV.UNIT}`);
+  const urlRes = http.get(`http://localhost:${port}/api/v1/message/test?size=${__ENV.SIZE}&unit=${__ENV.UNIT}`);
   sleep(1);
 };
